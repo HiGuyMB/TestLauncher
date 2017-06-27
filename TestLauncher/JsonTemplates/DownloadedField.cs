@@ -10,20 +10,31 @@ namespace TestLauncher.JsonTemplates
 {
     class DownloadedField<T>
     {
+        protected Uri m_address;
         public bool ready;
         public T value;
 
         public DownloadedField(Uri address)
         {
+            m_address = address;
+            ready = false;
+        }
+
+        async public void Start()
+        {
             WebClient client = new WebClient();
             client.DownloadDataCompleted += DataCompleted;
-            client.DownloadDataAsync(address);
-
-            ready = false;
+            await client.DownloadDataTaskAsync(m_address);
         }
 
         private void DataCompleted(object sender, DownloadDataCompletedEventArgs e)
         {
+            if (e.Error != null || e.Cancelled)
+            {
+                //TODO: Error handling
+                return;
+            }
+
             try
             {
                 string json = Encoding.UTF8.GetString(e.Result);
@@ -33,7 +44,7 @@ namespace TestLauncher.JsonTemplates
             }
             catch (Exception ex)
             {
-
+                //TODO: Error handling
             }
         }
 
