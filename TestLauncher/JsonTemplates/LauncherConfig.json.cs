@@ -16,12 +16,12 @@ namespace TestLauncher.JsonTemplates
         [JsonConverter(typeof(PlatformSpecificConverter<String>))]
         public String selfupdate;
 
-        [JsonConverter(typeof(PlatformSpecificConverter<String>))]
-        public String launcher;
+        [JsonConverter(typeof(PlatformSpecificConverter<Uri>))]
+        public Uri launcher;
 
-        [JsonConverter(typeof(PlatformSpecificConverter<String>))]
-        public String customlist;
+        [JsonConverter(typeof(PlatformSpecificConverter<Uri>))]
+        public Uri customlist;
 
-        public IDictionary<String, String> defaultmods;
+        public IDictionary<Uri, String> defaultmods;
     }
 }

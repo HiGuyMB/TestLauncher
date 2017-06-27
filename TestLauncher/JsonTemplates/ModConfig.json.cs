@@ -13,7 +13,7 @@ namespace TestLauncher.JsonTemplates
         public String name;
         public String gamename;
         public String shortname;
-        public String image;
+        public Uri image;
         [JsonConverter(typeof(DownloadedPlatformSpecificConverter<JObject>))]
         public DownloadedField<JObject> prunelist;
         [JsonConverter(typeof(DownloadedPlatformSpecificConverter<IDictionary<String, String>>))]
@@ -31,10 +31,10 @@ namespace TestLauncher.JsonTemplates
         public String opensub;
         public String rootname;
         public String title;
-        public String news;
-        public String changelog;
+        public Uri news;
+        public Uri changelog;
         public String doconsolepost;
-        public String consolepost;
+        public Uri consolepost;
         public String consoleposttitle;
         public String consolepostmessage;
         public String consolepostattachmentname;

@@ -10,8 +10,6 @@ namespace TestLauncher.JsonTemplates
 {
     class DownloadedConverter<T> : JsonConverter
     {
-        T obj;
-    
         public override bool CanConvert(Type objectType)
         {
             throw new NotImplementedException();
@@ -19,10 +17,8 @@ namespace TestLauncher.JsonTemplates
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            String address = serializer.Deserialize<String>(reader);
-            Uri uri = new Uri(address);
-
-            return new DownloadedField<T>(uri);
+            Uri address = serializer.Deserialize<Uri>(reader);
+            return new DownloadedField<T>(address);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

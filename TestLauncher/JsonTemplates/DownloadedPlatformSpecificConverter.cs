@@ -19,19 +19,15 @@ namespace TestLauncher.JsonTemplates
         {
             try
             {
-                IDictionary<String, String> dict = serializer.Deserialize<IDictionary<String, String>>(reader);
+                IDictionary<String, Uri> dict = serializer.Deserialize<IDictionary<String, Uri>>(reader);
                 
-                String address = dict["windows"];
-                Uri uri = new Uri(address);
-
-                return new DownloadedField<T>(uri);
+                Uri address = dict["windows"];
+                return new DownloadedField<T>(address);
             }
             catch (Exception e)
             {
-                String address = serializer.Deserialize<String>(reader);
-                Uri uri = new Uri(address);
-
-                return new DownloadedField<T>(uri);
+                Uri address = serializer.Deserialize<Uri>(reader);
+                return new DownloadedField<T>(address);
             }
         }
 

@@ -31,11 +31,11 @@ namespace TestLauncher
             try
             {
                 LauncherConfig config = JsonConvert.DeserializeObject<LauncherConfig>(json);
-                foreach (String modAddress in config.defaultmods.Keys)
+                foreach (Uri modAddress in config.defaultmods.Keys)
                 {
                     WebClient client = new WebClient();
                     client.DownloadDataCompleted += ModCompleted;
-                    client.DownloadDataAsync(new Uri(modAddress));
+                    client.DownloadDataAsync(modAddress);
                 }
             }
             catch (Exception ex)
