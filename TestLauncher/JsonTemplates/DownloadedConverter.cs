@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace TestLauncher.JsonTemplates
 {
-    class PlatformSpecificField<T> : JsonConverter
+    class DownloadedConverter<T> : JsonConverter
     {
+        T obj;
+    
         public override bool CanConvert(Type objectType)
         {
             throw new NotImplementedException();
@@ -17,15 +19,10 @@ namespace TestLauncher.JsonTemplates
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            try
-            {
-                IDictionary<String, T> dict = serializer.Deserialize<IDictionary<String, T>>(reader);
-                return dict["windows"];
-            }
-            catch (Exception e)
-            {
-                return serializer.Deserialize<T>(reader);
-            }
+            String address = serializer.Deserialize<String>(reader);
+            Uri uri = new Uri(address);
+
+            return new DownloadedField<T>(uri);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

@@ -10,16 +10,16 @@ namespace TestLauncher.JsonTemplates
 {
     class LauncherConfig
     {
-        [JsonConverter(typeof(PlatformSpecificField<String>))]
+        [JsonConverter(typeof(PlatformSpecificConverter<String>))]
         public String launchermd5;
 
-        [JsonConverter(typeof(PlatformSpecificField<String>))]
+        [JsonConverter(typeof(PlatformSpecificConverter<String>))]
         public String selfupdate;
 
-        [JsonConverter(typeof(PlatformSpecificField<String>))]
+        [JsonConverter(typeof(PlatformSpecificConverter<String>))]
         public String launcher;
 
-        [JsonConverter(typeof(PlatformSpecificField<String>))]
+        [JsonConverter(typeof(PlatformSpecificConverter<String>))]
         public String customlist;
 
         public IDictionary<String, String> defaultmods;

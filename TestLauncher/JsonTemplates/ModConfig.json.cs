@@ -13,14 +13,15 @@ namespace TestLauncher.JsonTemplates
         public String gamename;
         public String shortname;
         public String image;
-        [JsonConverter(typeof(PlatformSpecificField<String>))]
+        [JsonConverter(typeof(PlatformSpecificConverter<String>))]
         public String prunelist;
-        [JsonConverter(typeof(PlatformSpecificField<String>))]
+        [JsonConverter(typeof(PlatformSpecificConverter<String>))]
         public String packages;
-        [JsonConverter(typeof(PlatformSpecificField<String>))]
+        [JsonConverter(typeof(PlatformSpecificConverter<String>))]
         public String listing;
         public String conversions;
-        public String migrations;
+        [JsonConverter(typeof(DownloadedConverter<IDictionary<String, String>>))]
+        public DownloadedField<IDictionary<String, String>> migrations;
         public String searches;
         public String prefsfile;
         public String lineending;
@@ -42,7 +43,7 @@ namespace TestLauncher.JsonTemplates
         public String copyposttitle;
         public String copyprefsmessage;
         public IDictionary<String, String> copydata;
-        [JsonConverter(typeof(PlatformSpecificField<String>))]
+        [JsonConverter(typeof(PlatformSpecificConverter<String>))]
         public String launchpath;
     }
 }

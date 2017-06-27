@@ -50,7 +50,9 @@ namespace TestLauncher
             try
             {
                 ModConfig config = JsonConvert.DeserializeObject<ModConfig>(json);
+                System.Threading.Thread.Sleep(10000);
 
+                Console.Write("Ah");
             }
             catch (Exception ex)
             {
