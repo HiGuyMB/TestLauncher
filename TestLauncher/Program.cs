@@ -31,6 +31,26 @@ namespace TestLauncher
             try
             {
                 LauncherConfig config = JsonConvert.DeserializeObject<LauncherConfig>(json);
+                foreach (String modAddress in config.defaultmods.Keys)
+                {
+                    WebClient client = new WebClient();
+                    client.DownloadDataCompleted += ModCompleted;
+                    client.DownloadDataAsync(new Uri(modAddress));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+            }
+        }
+
+        private static void ModCompleted(object sender, DownloadDataCompletedEventArgs e)
+        {
+            string json = Encoding.UTF8.GetString(e.Result);
+            try
+            {
+                ModConfig config = JsonConvert.DeserializeObject<ModConfig>(json);
+
             }
             catch (Exception ex)
             {

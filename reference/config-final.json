@@ -1,0 +1,82 @@
+{
+	"name" : "platinum",
+	"gamename" : "Marble Blast Platinum",
+	"shortname" : "mbp",
+	"image" : "http://files.marbleblast.com/img/platinum.jpg",
+	"prunelist" : {
+		"mac"     : "http://files.marbleblast.com/latest-1/delete-mac.json",
+		"macold"  : "http://files.marbleblast.com/latest-1/delete-mac.json",
+		"windows" : "http://files.marbleblast.com/latest-1/delete-win.json",
+		"other"   : "http://files.marbleblast.com/latest-1/delete-win.json"
+	},
+	"packages" : {
+		"mac"     : "http://files.marbleblast.com/latest-1/packages-mac.json",
+		"macold"  : "http://files.marbleblast.com/latest-1/packages-mac.json",
+		"windows" : "http://files.marbleblast.com/latest-1/packages-win.json",
+		"other"   : "http://files.marbleblast.com/latest-1/packages-win.json"
+	}, 
+	"listing" : {
+		"mac"     : "http://files.marbleblast.com/latest-1/listing-mac.json",
+		"macold"  : "http://files.marbleblast.com/latest-1/listing-mac.json",
+		"windows" : "http://files.marbleblast.com/latest-1/listing-win.json",
+		"other"   : "http://files.marbleblast.com/latest-1/listing-win.json"
+	},
+	"conversions" : "http://files.marbleblast.com/latest-1/conversions.json",
+	"migrations" : "http://files.marbleblast.com/latest-1/migrations.json",
+	"searches" : "http://files.marbleblast.com/latest-1/searches.json",
+	"prefsfile" : "/platinum/client/MBPPrefs.cs",
+	"lineending" : "\r\n",
+	"opensub" : "/platinum/",
+	"rootname" : "platinum",
+
+	"title" : "Marble Blast Platinum Launcher",
+	"news" : "http://platinum.marbleblast.com/news.php",
+	"changelog" : "http://platinum.marbleblast.com/changelog.php",
+
+	"doconsolepost" : "true",
+	"consolepost" : "http://marbleblast.com/leader/consoletest.php",
+	"consoleposttitle" : "Crash Detected",
+	"consolepostmessage" : "Marble Blast Platinum appears to have crashed. Send your console?",
+	"consolepostattachmentname" : "console",
+	"consolepostattachmentfile" : "console.zip",
+
+	"offlinetitle" : "Game Offline",
+	"offlinemessage" : "Marble Blast Platinum could not load the latest updates; you may be offline. Should Launcher open Marble Blast Platinum game without updating?",
+
+	"docopyprefs" : "true",
+	"copyprefsask" : "true",
+	"copyposttitle" : "Detected old Preferences",
+	"copyprefsmessage" : "Detected old preference files from an earlier installation of Marble Blast Platinum.\nDo you want to copy them?",
+	"copydata" : {
+		"/platinumbeta/client/config.cs" : "/platinum/client/config.cs",
+		"/platinumbeta/client/lbprefs.cs" : "/platinum/client/lbprefs.cs",
+		"/platinumbeta/client/MBPPrefs.cs" : "/platinum/client/MBPPrefs.cs",
+		"/platinumbeta/core/editor/WEprefs.cs" : "/platinum/core/editor/WEprefs.cs",
+		"/platinumbeta/leaderboards/multiplayer/prefs.cs" : "/platinum/leaderboards/multiplayer/prefs.cs"
+	},
+	"launchermd5" : {
+		"mac"     : "faa40370f1904c8441bf06b251e33c71",
+		"windows" : "6b464501df86903947be72c696905cd1",
+		"other"   : "6b464501df86903947be72c696905cd1",
+		"macold"  : "faa40370f1904c8441bf06b251e33c71"
+	},
+	"selfupdate" : {
+		"mac"     : "true",
+		"macold"  : "true",
+		"windows" : "true",
+		"other"   : "true"
+	},
+	"launcher" : {
+		"mac"     : "http://files.marbleblast.com/launcher/MBPLauncher.jar",
+		"macold"  : "http://files.marbleblast.com/launcher/MBPLauncher.jar",
+		"windows" : "http://files.marbleblast.com/launcher/MBPLauncher.exe",
+		"other"   : "http://files.marbleblast.com/launcher/MBPLauncher.exe"
+	},
+	"launchpath" : {
+		"mac"     : "/Contents/MacOS/MBExtender",
+		"macold"  : "/Contents/MacOS/MBExtender",
+		"windows" : "/marbleblast.exe",
+		"other"   : "/marbleblast.exe"
+	},
+	"customlist" : "http://dev.marbleblast.com/modules/mod_levels/tmpl/levelList.php"
+}

@@ -51,8 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JsonCreationConverter.cs" />
     <Compile Include="JsonTemplates\LauncherConfig.json.cs" />
+    <Compile Include="JsonTemplates\ModConfig.json.cs" />
     <Compile Include="JsonTemplates\PlatformSpecificField.json.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
