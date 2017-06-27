@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +14,18 @@ namespace TestLauncher.JsonTemplates
         public String gamename;
         public String shortname;
         public String image;
-        [JsonConverter(typeof(PlatformSpecificConverter<String>))]
-        public String prunelist;
-        [JsonConverter(typeof(PlatformSpecificConverter<String>))]
-        public String packages;
-        [JsonConverter(typeof(PlatformSpecificConverter<String>))]
-        public String listing;
-        public String conversions;
+        [JsonConverter(typeof(DownloadedPlatformSpecificConverter<JObject>))]
+        public DownloadedField<JObject> prunelist;
+        [JsonConverter(typeof(DownloadedPlatformSpecificConverter<IDictionary<String, String>>))]
+        public DownloadedField<IDictionary<String, String>> packages;
+        [JsonConverter(typeof(DownloadedPlatformSpecificConverter<JObject>))]
+        public DownloadedField<JObject> listing;
+        [JsonConverter(typeof(DownloadedConverter<IDictionary<String, String>>))]
+        public DownloadedField<IDictionary<String, String>> conversions;
         [JsonConverter(typeof(DownloadedConverter<IDictionary<String, String>>))]
         public DownloadedField<IDictionary<String, String>> migrations;
-        public String searches;
+        [JsonConverter(typeof(DownloadedConverter<IDictionary<String, String>>))]
+        public DownloadedField<IDictionary<String, String>> searches;
         public String prefsfile;
         public String lineending;
         public String opensub;

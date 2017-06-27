@@ -55,6 +55,7 @@
     <Compile Include="JsonTemplates\DownloadedField.cs" />
     <Compile Include="JsonTemplates\LauncherConfig.json.cs" />
     <Compile Include="JsonTemplates\ModConfig.json.cs" />
+    <Compile Include="JsonTemplates\DownloadedPlatformSpecificConverter.cs" />
     <Compile Include="JsonTemplates\PlatformSpecificConverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
