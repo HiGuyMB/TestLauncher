@@ -49,6 +49,8 @@ namespace TestLauncher.JsonTemplates
         [JsonConverter(typeof(PlatformSpecificConverter<String>))]
         public String launchpath;
 
+        public IDictionary<String, ModPackage> modPackages;
+
         /// <summary>
         /// Download all the DownloadedField config options (task)
         /// </summary>
@@ -56,7 +58,7 @@ namespace TestLauncher.JsonTemplates
         async public Task<bool> DownloadConfig()
         {
             bool[] results = await Task.WhenAll<bool>(
-                prunelist.Download( ),
+                prunelist.Download(),
                 packages.Download(),
                 listing.Download(),
                 conversions.Download(),
@@ -64,7 +66,53 @@ namespace TestLauncher.JsonTemplates
                 searches.Download()
             );
 
-            return !results.Contains(false);
+            if (results.Contains(false))
+            {
+                return false;
+            }
+
+            modPackages = new Dictionary<String, ModPackage>();
+            return FindPackages(listing.value, "");
+        }
+
+        bool FindPackages(JObject root, string path = "")
+        {
+            foreach (JToken token in root.Properties())
+            {
+                if (token is JProperty)
+                {
+                    JProperty prop = token as JProperty;
+                    if (prop.Value.Type == JTokenType.String && prop.Name == "md5")
+                    {
+                        //It's a file
+                        string md5 = prop.Value.ToString();
+                        string package = root["package"].ToString();
+
+                        if (!modPackages.ContainsKey(package))
+                        {
+                            AddModPackage(package);
+                        }
+                        if (!modPackages[package].AddFile(path, md5))
+                        {
+                            return false;
+                        }
+                    }
+                    else if (prop.Value is JObject)
+                    {
+                        FindPackages(prop.Value as JObject, path + "/" + prop.Name);
+                    }
+                }
+            }
+            return true;
+        }
+
+        void AddModPackage(string name)
+        {
+            //Find the address
+            Uri address = packages.value[name + ".zip"];
+            //And add the package
+            ModPackage package = new ModPackage(name, address);
+            modPackages.Add(name, package);
         }
 
         async public Task<bool> InstallMod(string installPath)
