@@ -20,13 +20,14 @@ namespace TestLauncher.JsonTemplates
             ready = false;
         }
 
-        public void Download()
+        /// <summary>
+        /// Download the file this field is assigned to
+        /// </summary>
+        /// <returns>If the download was successful</returns>
+        async public Task<bool> Download()
         {
-            Console.WriteLine(String.Format("Downloading file {0}", m_address.ToString()));
             WebClient client = new WebClient();
-            byte[] data = client.DownloadData(m_address);
-
-            Console.WriteLine(String.Format("Downloaded file {0}", m_address.ToString()));
+            byte[] data = await client.DownloadDataTaskAsync(m_address);
 
             try
             {
@@ -34,10 +35,11 @@ namespace TestLauncher.JsonTemplates
                 value = JsonConvert.DeserializeObject<T>(json);
 
                 ready = true;
+                return true;
             }
             catch (Exception ex)
             {
-                //TODO: Error handling
+                return false;
             }
         }
 

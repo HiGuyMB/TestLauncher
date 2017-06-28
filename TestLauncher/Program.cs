@@ -17,12 +17,14 @@ namespace TestLauncher
         {
             Uri address = new Uri("https://marbleblast.com/files/launcher/config.json");
 
-            LoadConfig(address);
+            LauncherConfig config = LoadConfig(address);
+            ModConfig mbp = config.mods["platinum"];
+
 
             Console.Read();
         }
 
-        static void LoadConfig(Uri address)
+        static LauncherConfig LoadConfig(Uri address)
         {
             WebClient client = new WebClient();
             byte[] data = client.DownloadData(address);
@@ -32,13 +34,15 @@ namespace TestLauncher
             try
             {
                 LauncherConfig config = JsonConvert.DeserializeObject<LauncherConfig>(json);
-                Console.WriteLine("Downloading config...");
-                Task.WaitAll(config.Download());
+                Task.WaitAll(config.DownloadConfig());
                 Console.WriteLine("Got config");
+
+                return config;
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
+                return null;
             }
         }
     }

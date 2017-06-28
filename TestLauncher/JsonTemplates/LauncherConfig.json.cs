@@ -32,11 +32,15 @@ namespace TestLauncher.JsonTemplates
             mods = new Dictionary<String, ModConfig>();
         }
 
-        void DownloadMod(Uri address)
+        /// <summary>
+        /// Download the mod at a given address and add it to the mods list for this config.
+        /// </summary>
+        /// <param name="address">Address of the mod's config.json file</param>
+        /// <returns>If the download was successful</returns>
+        async Task<bool> DownloadMod(Uri address)
         {
-            Console.WriteLine(String.Format("Downloading mod from {0}", address.ToString()));
             WebClient client = new WebClient();
-            byte[] data = client.DownloadData(address);
+            byte[] data = await client.DownloadDataTaskAsync(address);
 
             string json = Encoding.UTF8.GetString(data);
             try
@@ -44,24 +48,30 @@ namespace TestLauncher.JsonTemplates
                 ModConfig config = JsonConvert.DeserializeObject<ModConfig>(json);
                 mods.Add(config.name, config);
 
-                Task.WaitAll(config.Download());
-
-                Console.WriteLine(String.Format("Got mod: {0}", config.name));
+                return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                return false;
             }
         }
 
-        public Task Download()
+        /// <summary>
+        /// Download the config files for the mods this launcher config contains. Does not
+        /// call DownloadConfig() on the mods that are created.
+        /// </summary>
+        /// <returns>If the download was successful</returns>
+        async public Task<bool> DownloadConfig()
         {
-            List<Task> tasks = new List<Task>();
+            List<Task<bool>> tasks = new List<Task<bool>>();
             foreach (Uri address in defaultmods.Keys)
             {
-                tasks.Add(Task.Factory.StartNew(() => DownloadMod(address)));
+                tasks.Add(DownloadMod(address));
             }
-            return Task.WhenAll(tasks.ToArray());
+
+            //We're successful when all mods are downloaded successfully
+            bool[] results = await Task.WhenAll<bool>(tasks.ToArray());
+            return !results.Contains(false);
         }
     }
 }

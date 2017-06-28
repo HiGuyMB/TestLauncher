@@ -49,16 +49,23 @@ namespace TestLauncher.JsonTemplates
         [JsonConverter(typeof(PlatformSpecificConverter<String>))]
         public String launchpath;
 
-        public Task Download()
+        /// <summary>
+        /// Download all the DownloadedField config options (task)
+        /// </summary>
+        /// <returns></returns>
+        async public Task<bool> DownloadConfig()
         {
-            return Task.WhenAll(
-                Task.Factory.StartNew(() => prunelist.Download()),
-                Task.Factory.StartNew(() => packages.Download()),
-                Task.Factory.StartNew(() => listing.Download()),
-                Task.Factory.StartNew(() => conversions.Download()),
-                Task.Factory.StartNew(() => migrations.Download()),
-                Task.Factory.StartNew(() => searches.Download())
+            bool[] results = await Task.WhenAll<bool>(
+                prunelist.Download( ),
+                packages.Download(),
+                listing.Download(),
+                conversions.Download(),
+                migrations.Download(),
+                searches.Download()
             );
+
+            return !(results.Contains(false));
+        }
         }
     }
 }
