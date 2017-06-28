@@ -48,5 +48,17 @@ namespace TestLauncher.JsonTemplates
         public IDictionary<String, String> copydata;
         [JsonConverter(typeof(PlatformSpecificConverter<String>))]
         public String launchpath;
+
+        public Task Download()
+        {
+            return Task.WhenAll(
+                Task.Factory.StartNew(() => prunelist.Download()),
+                Task.Factory.StartNew(() => packages.Download()),
+                Task.Factory.StartNew(() => listing.Download()),
+                Task.Factory.StartNew(() => conversions.Download()),
+                Task.Factory.StartNew(() => migrations.Download()),
+                Task.Factory.StartNew(() => searches.Download())
+            );
+        }
     }
 }

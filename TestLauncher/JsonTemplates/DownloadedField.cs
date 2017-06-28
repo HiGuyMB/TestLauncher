@@ -20,24 +20,17 @@ namespace TestLauncher.JsonTemplates
             ready = false;
         }
 
-        async public void Start()
+        public void Download()
         {
+            Console.WriteLine(String.Format("Downloading file {0}", m_address.ToString()));
             WebClient client = new WebClient();
-            client.DownloadDataCompleted += DataCompleted;
-            await client.DownloadDataTaskAsync(m_address);
-        }
+            byte[] data = client.DownloadData(m_address);
 
-        private void DataCompleted(object sender, DownloadDataCompletedEventArgs e)
-        {
-            if (e.Error != null || e.Cancelled)
-            {
-                //TODO: Error handling
-                return;
-            }
+            Console.WriteLine(String.Format("Downloaded file {0}", m_address.ToString()));
 
             try
             {
-                string json = Encoding.UTF8.GetString(e.Result);
+                string json = Encoding.UTF8.GetString(data);
                 value = JsonConvert.DeserializeObject<T>(json);
 
                 ready = true;

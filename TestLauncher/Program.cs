@@ -17,16 +17,17 @@ namespace TestLauncher
         {
             Uri address = new Uri("https://marbleblast.com/files/launcher/config.json");
 
-            WebClient client = new WebClient();
-            client.DownloadDataCompleted += ConfigCompleted;
-            client.DownloadDataAsync(address);
+            LoadConfig(address);
 
             Console.Read();
         }
 
-        private static void ConfigCompleted(object sender, DownloadDataCompletedEventArgs e)
+        static void LoadConfig(Uri address)
         {
-            string json = Encoding.UTF8.GetString(e.Result);
+            WebClient client = new WebClient();
+            byte[] data = client.DownloadData(address);
+
+            string json = Encoding.UTF8.GetString(data);
 
             try
             {

@@ -44,6 +44,8 @@ namespace TestLauncher.JsonTemplates
                 ModConfig config = JsonConvert.DeserializeObject<ModConfig>(json);
                 mods.Add(config.name, config);
 
+                Task.WaitAll(config.Download());
+
                 Console.WriteLine(String.Format("Got mod: {0}", config.name));
             }
             catch (Exception ex)
