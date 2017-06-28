@@ -20,6 +20,8 @@ namespace TestLauncher
             LauncherConfig config = LoadConfig(address);
             ModConfig mbp = config.mods["platinum"];
 
+            Task.WaitAll(mbp.InstallMod("C:\\Users\\***REMOVED***\\Desktop\\MBP"));
+            Console.WriteLine("After Install");
 
             Console.Read();
         }

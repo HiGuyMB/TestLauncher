@@ -16,8 +16,8 @@ namespace TestLauncher.JsonTemplates
         public Uri image;
         [JsonConverter(typeof(DownloadedPlatformSpecificConverter<JObject>))]
         public DownloadedField<JObject> prunelist;
-        [JsonConverter(typeof(DownloadedPlatformSpecificConverter<IDictionary<String, String>>))]
-        public DownloadedField<IDictionary<String, String>> packages;
+        [JsonConverter(typeof(DownloadedPlatformSpecificConverter<IDictionary<String, Uri>>))]
+        public DownloadedField<IDictionary<String, Uri>> packages;
         [JsonConverter(typeof(DownloadedPlatformSpecificConverter<JObject>))]
         public DownloadedField<JObject> listing;
         [JsonConverter(typeof(DownloadedConverter<IDictionary<String, String>>))]
@@ -64,8 +64,19 @@ namespace TestLauncher.JsonTemplates
                 searches.Download()
             );
 
-            return !(results.Contains(false));
+            return !results.Contains(false);
         }
+
+        async public Task<bool> InstallMod(string installPath)
+        {
+            //Need install info before we can go installing
+            if (!await DownloadConfig())
+            {
+                return false;
+            }
+
+            Installer installer = new Installer(this, installPath);
+            return await installer.Install();
         }
     }
 }
