@@ -12,7 +12,7 @@ using MBLauncherLib.JsonTemplates;
 
 namespace MBLauncherLib
 {
-    class Installer
+    public class Installer
     {
         ModConfig m_config;
         string m_baseDirectory;

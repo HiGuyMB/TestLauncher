@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MBLauncherLib
 {
-    class ModPackage
+    public class ModPackage
     {
         public class PackageEntry
         {

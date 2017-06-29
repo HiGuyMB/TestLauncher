@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MBLauncherLib.JsonTemplates
 {
-    class DownloadedField<T>
+    public class DownloadedField<T>
     {
         protected Uri m_address;
         public bool ready;

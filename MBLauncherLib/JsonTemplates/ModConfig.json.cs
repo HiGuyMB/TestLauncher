@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MBLauncherLib.JsonTemplates
 {
-    class ModConfig
+    public class ModConfig
     {
         public String name;
         public String gamename;

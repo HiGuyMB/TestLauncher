@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MBLauncherLib.JsonTemplates
 {
-    class LauncherConfig
+    public class LauncherConfig
     {
         [JsonConverter(typeof(PlatformSpecificConverter<String>))]
         public String launchermd5;
@@ -41,6 +41,16 @@ namespace MBLauncherLib.JsonTemplates
 			byte[] data = await client.DownloadDataTaskAsync(m_address);
 
 			string json = Encoding.UTF8.GetString(data);
+
+            try
+            {
+                JsonConvert.PopulateObject(json, this);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
             return await DownloadMods();
 		}
 
