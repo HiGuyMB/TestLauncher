@@ -44,8 +44,15 @@ namespace MBLauncher_Windows
             ModConfig mod = config.mods["platinum"];
             Task.Run(() =>
             {
-                return mod.InstallMod("C:\\Users\\***REMOVED***\\Desktop\\MBP");
-            }).ContinueWith((Task<bool> task) =>
+                try
+                {
+                    mod.InstallMod("C:\\Users\\***REMOVED***\\Desktop\\MBP");
+                }
+                catch (Exception ex)
+                {
+                    this.WaitingLabel.Text = "Oh no";
+                }
+            }).ContinueWith((Task task) =>
             {
                 OnMainThread(() =>
                 {

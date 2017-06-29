@@ -39,16 +39,51 @@ namespace MBLauncherMac
         {
             this.WaitingLabel.StringValue = "Installing MBP...";
             ModConfig mod = config.mods["platinum"];
+
+            string installDir = GetInstallDir("platinum");
+
             Task.Run(() =>
             {
-                return mod.InstallMod("TODO: Path Manager");
-            }).ContinueWith((Task<bool> task) =>
+				try
+				{
+					mod.InstallMod(installDir);
+				}
+				catch (Exception ex)
+				{
+                    this.WaitingLabel.StringValue = "Oh no";
+				}
+            }).ContinueWith((Task task) =>
             {
                 OnMainThread(() =>
                 {
                     this.WaitingLabel.StringValue = "Installed";
                 });
             });
+        }
+
+        public string GetInstallDir(string mod)
+        {
+            //Check preferences
+			string modKey = "installpath-" + mod;
+            if (NSUserDefaults.StandardUserDefaults.URLForKey(modKey) != null)
+            {
+                return NSUserDefaults.StandardUserDefaults.URLForKey(modKey).Path;
+            }
+            //Get install directory
+            NSOpenPanel openPanel = NSOpenPanel.OpenPanel;
+            openPanel.AllowsMultipleSelection = false;
+            openPanel.CanChooseDirectories = true;
+            openPanel.AllowedFileTypes = new string[]{"app"};
+            openPanel.CanChooseFiles = true;
+            if (openPanel.RunModal() == (int)NSModalResponse.OK)
+            {
+                NSUrl dir = openPanel.Urls[openPanel.Urls.Length - 1];
+                NSUserDefaults.StandardUserDefaults.SetURL(dir, new NSString(modKey));
+
+                return dir.Path;
+            }
+
+            throw(new Exception("Cancelled Directory Search"));
         }
 
         void OnMainThread(Action action)
