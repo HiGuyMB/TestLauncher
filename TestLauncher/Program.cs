@@ -17,35 +17,15 @@ namespace TestLauncher
         {
             Uri address = new Uri("https://marbleblast.com/files/launcher/config.json");
 
-            LauncherConfig config = LoadConfig(address);
+            LauncherConfig config = new LauncherConfig(address);
+            Task.WaitAll(config.DownloadConfig());
+
             ModConfig mbp = config.mods["platinum"];
 
-            Task.WaitAll(mbp.InstallMod("C:\\Users\\***REMOVED***\\Desktop\\MBP"));
+            Task.WaitAll(mbp.InstallMod(""));
             Console.WriteLine("After Install");
 
             Console.Read();
-        }
-
-        static LauncherConfig LoadConfig(Uri address)
-        {
-            WebClient client = new WebClient();
-            byte[] data = client.DownloadData(address);
-
-            string json = Encoding.UTF8.GetString(data);
-
-            try
-            {
-                LauncherConfig config = JsonConvert.DeserializeObject<LauncherConfig>(json);
-                Task.WaitAll(config.DownloadConfig());
-                Console.WriteLine("Got config");
-
-                return config;
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.Message);
-                return null;
-            }
         }
     }
 }

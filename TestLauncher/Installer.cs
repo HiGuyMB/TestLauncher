@@ -1,4 +1,5 @@
-﻿using Ionic.Zip;
+﻿using Ionic.Crc;
+using Ionic.Zip;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,6 +25,10 @@ namespace TestLauncher
             m_tempDirectory = m_baseDirectory + "/.tmp/";
         }
 
+        /// <summary>
+        /// Install the mod. Main work function
+        /// </summary>
+        /// <returns>True if install succeeded</returns>
         async public Task<bool> Install()
         {
             Directory.CreateDirectory(m_baseDirectory);
@@ -48,6 +53,11 @@ namespace TestLauncher
             return true;
         }
 
+        /// <summary>
+        /// Download and install files from a specific mod package.
+        /// </summary>
+        /// <param name="package">Package whose files to download and install</param>
+        /// <returns>True if install succeeded</returns>
         async Task<bool> InstallPackage(ModPackage package)
         {
             Uri address = package.Address;
@@ -69,6 +79,15 @@ namespace TestLauncher
                 {
                     foreach (ZipEntry entry in zip)
                     {
+                        string fullFile = m_baseDirectory + "/" + entry.FileName;
+                        if (!entry.IsDirectory && File.Exists(fullFile))
+                        {
+                            //Check if we need to extract this
+                            if (entry.Crc == GetCRC32(fullFile))
+                            {
+                                continue;
+                            }
+                        }
                         entry.Extract(m_baseDirectory, ExtractExistingFileAction.OverwriteSilently);
                     }
                 }
@@ -100,26 +119,39 @@ namespace TestLauncher
             return packagesToInstall.ToArray();
         }
 
+        /// <summary>
+        /// Find if any file in a package is not present or has changed.
+        /// </summary>
+        /// <param name="package">Package whose files are checked</param>
+        /// <returns>True if there has been a change</returns>
         bool FindUnmatchedFile(ModPackage package)
         {
             foreach (ModPackage.PackageEntry file in package.GetFiles())
             {
                 string fullPath = m_baseDirectory + file.path;
+                //New file
                 if (!File.Exists(fullPath))
                 {
                     return true;
                 }
-                //Check MD5
+                //Changed file
                 if (GetMD5(fullPath) != file.md5)
                 {
                     return true;
                 }
             }
+            //Nothing new
             return false;
         }
 
+        /// <summary>
+        /// Get the MD5 hash of a file (hex string)
+        /// </summary>
+        /// <param name="path">Path of the file</param>
+        /// <returns>Hex string of the hash</returns>
         string GetMD5(string path)
         {
+            //https://stackoverflow.com/a/827694
             StringBuilder builder = new StringBuilder();
             MD5 hasher = MD5.Create();
             using (FileStream stream = File.OpenRead(path))
@@ -129,6 +161,20 @@ namespace TestLauncher
             }
 
             return builder.ToString();
+        }
+
+        /// <summary>
+        /// Get the CRC32 hash of a file (hex string)
+        /// </summary>
+        /// <param name="path">Path of the file</param>
+        /// <returns>Hash</returns>
+        int GetCRC32(string path)
+        {
+            CRC32 hasher = new CRC32();
+            using (FileStream stream = File.OpenRead(path))
+            {
+                return hasher.GetCrc32(stream);
+            }
         }
     }
 }

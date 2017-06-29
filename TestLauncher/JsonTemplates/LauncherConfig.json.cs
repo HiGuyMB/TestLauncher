@@ -26,11 +26,23 @@ namespace TestLauncher.JsonTemplates
         public IDictionary<Uri, String> defaultmods;
 
         public IDictionary<String, ModConfig> mods;
+
+        Uri m_address;
         
-        LauncherConfig()
+        public LauncherConfig(Uri address)
         {
             mods = new Dictionary<String, ModConfig>();
+            m_address = address;
         }
+
+        async public Task<bool> DownloadConfig()
+        {
+			WebClient client = new WebClient();
+			byte[] data = await client.DownloadDataTaskAsync(m_address);
+
+			string json = Encoding.UTF8.GetString(data);
+            return await DownloadMods();
+		}
 
         /// <summary>
         /// Download the mod at a given address and add it to the mods list for this config.
@@ -61,7 +73,7 @@ namespace TestLauncher.JsonTemplates
         /// call DownloadConfig() on the mods that are created.
         /// </summary>
         /// <returns>If the download was successful</returns>
-        async public Task<bool> DownloadConfig()
+        async Task<bool> DownloadMods()
         {
             List<Task<bool>> tasks = new List<Task<bool>>();
             foreach (Uri address in defaultmods.Keys)
