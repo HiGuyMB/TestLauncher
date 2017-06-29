@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Button Content="Do the Do" HorizontalAlignment="Left" Margin="226,151,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="213,89,0,0" TextWrapping="Wrap" Text="Waiting for Config..." VerticalAlignment="Top" Name="WaitingLabel"/>
+
     </Grid>
 </Window>

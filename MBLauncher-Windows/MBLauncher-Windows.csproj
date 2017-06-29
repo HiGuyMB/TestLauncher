@@ -93,5 +93,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MBLauncherLib\MBLauncherLib.csproj">
+      <Project>{0577b2f7-263f-4430-aee5-cc8bd204ee69}</Project>
+      <Name>MBLauncherLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
