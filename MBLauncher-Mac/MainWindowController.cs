@@ -3,7 +3,7 @@
 using Foundation;
 using AppKit;
 
-namespace MBLauncher
+namespace MBLauncherMac
 {
     public partial class MainWindowController : NSWindowController
     {

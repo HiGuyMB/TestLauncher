@@ -1,6 +1,6 @@
 ﻿using AppKit;
 
-namespace MBLauncher
+namespace MBLauncherMac
 {
     static class MainClass
     {

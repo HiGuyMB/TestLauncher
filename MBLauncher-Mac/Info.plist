@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>MBLauncher</string>
+	<string>MBLauncher-Mac</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.platinumteam.mblauncher</string>
+	<string>com.platinumteam.mblauncher-mac</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>

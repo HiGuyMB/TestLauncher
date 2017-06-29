@@ -1,7 +1,7 @@
 ﻿using AppKit;
 using Foundation;
 
-namespace MBLauncher
+namespace MBLauncherMac
 {
     [Register("AppDelegate")]
     public class AppDelegate : NSApplicationDelegate

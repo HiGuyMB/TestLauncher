@@ -3,13 +3,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3E7DEE65-D24F-4934-A88C-BF39728FA3D4}</ProjectGuid>
+    <ProjectGuid>{062C00E1-4D95-4669-8CA8-A60DDCC37ECC}</ProjectGuid>
     <ProjectTypeGuids>{A3F8F2AB-B479-4A4A-A458-A89E7DC349F1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>MBLauncher</RootNamespace>
-    <AssemblyName>MBLauncher</AssemblyName>
+    <RootNamespace>MBLauncherMac</RootNamespace>
+    <AssemblyName>MBLauncher-Mac</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>Xamarin.Mac</TargetFrameworkIdentifier>
     <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
-    <UseXamMacFullFramework>true</UseXamMacFullFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -26,9 +27,9 @@
     <IncludeMonoRuntime>false</IncludeMonoRuntime>
     <UseSGen>true</UseSGen>
     <UseRefCounting>true</UseRefCounting>
-    <HttpClientHandler>HttpClientHandler</HttpClientHandler>
-    <LinkMode>None</LinkMode>
-    <XamMacArch>i386</XamMacArch>
+    <HttpClientHandler></HttpClientHandler>
+    <LinkMode></LinkMode>
+    <XamMacArch></XamMacArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,8 +44,8 @@
     <IncludeMonoRuntime>true</IncludeMonoRuntime>
     <UseSGen>true</UseSGen>
     <UseRefCounting>true</UseRefCounting>
-    <LinkMode>None</LinkMode>
-    <HttpClientHandler>HttpClientHandler</HttpClientHandler>
+    <LinkMode>SdkOnly</LinkMode>
+    <HttpClientHandler></HttpClientHandler>
     <XamMacArch></XamMacArch>
   </PropertyGroup>
   <ItemGroup>
@@ -84,12 +85,6 @@
   <ItemGroup>
     <InterfaceDefinition Include="MainMenu.xib" />
     <InterfaceDefinition Include="MainWindow.xib" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TestLauncher\TestLauncher.csproj">
-      <Project>{0577B2F7-263F-4430-AEE5-CC8BD204EE69}</Project>
-      <Name>TestLauncher</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
 </Project>
