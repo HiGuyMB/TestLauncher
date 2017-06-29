@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using TestLauncher.JsonTemplates;
+using MBLauncherLib.JsonTemplates;
 
-namespace TestLauncher
+namespace MBLauncherLib
 {
     class Program
     {

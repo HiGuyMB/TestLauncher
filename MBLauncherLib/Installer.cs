@@ -8,9 +8,9 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using TestLauncher.JsonTemplates;
+using MBLauncherLib.JsonTemplates;
 
-namespace TestLauncher
+namespace MBLauncherLib
 {
     class Installer
     {
