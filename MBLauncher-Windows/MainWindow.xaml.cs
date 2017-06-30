@@ -43,7 +43,7 @@ namespace MBLauncher_Windows
             });
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Install_Click(object sender, RoutedEventArgs e)
         {
             this.WaitingLabel.Text = "Installing MBP...";
             ModConfig mod = config.mods["platinum"];
@@ -69,7 +69,12 @@ namespace MBLauncher_Windows
             });
         }
 
-        public string GetInstallDir(string mod)
+        private void ChangeInstallPath_Click(object sender, RoutedEventArgs e)
+        {
+            GetInstallDir("platinum", true);
+        }
+
+        public string GetInstallDir(string mod, bool clearCache = false)
         {
             var settings = MBLauncher_Windows.Properties.Settings.Default;
 
@@ -89,7 +94,7 @@ namespace MBLauncher_Windows
                 installPath = new Dictionary<string, string>();
             }
             //Check preferences
-            if (installPath.ContainsKey(mod))
+            if (installPath.ContainsKey(mod) && !clearCache)
             {
                 return installPath[mod];
             }
@@ -115,7 +120,6 @@ namespace MBLauncher_Windows
             //No?
             throw (new Exception("Cancelled by user"));
         }
-
 
         private void OnMainThread(Action action)
         {
