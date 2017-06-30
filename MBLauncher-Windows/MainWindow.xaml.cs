@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MBLauncherLib;
 using MBLauncherLib.JsonTemplates;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace MBLauncher_Windows
 {
@@ -42,11 +43,14 @@ namespace MBLauncher_Windows
         {
             this.WaitingLabel.Text = "Installing MBP...";
             ModConfig mod = config.mods["platinum"];
+
+            string installDir = GetInstallDir("platinum");
+
             Task.Run(() =>
             {
                 try
                 {
-                    mod.InstallMod("C:\\Users\\***REMOVED***\\Desktop\\MBP");
+                    Task.WaitAll(mod.InstallMod(installDir));
                 }
                 catch (Exception ex)
                 {
@@ -60,6 +64,41 @@ namespace MBLauncher_Windows
                 });
             });
         }
+
+        public string GetInstallDir(string mod)
+        {
+            var settings = MBLauncher_Windows.Properties.Settings.Default;
+            
+            if (settings.InstallPath == null)
+            {
+                settings.InstallPath = new System.Collections.Specialized.StringDictionary();
+            }
+
+            //Check preferences
+            if (settings.InstallPath.ContainsKey(mod))
+            {
+                return settings.InstallPath[mod];
+            }
+
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.IsFolderPicker = true;
+            dialog.Title = "Choose Install Location";
+            dialog.EnsureValidNames = true;
+            dialog.Multiselect = false;
+
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                var dir = dialog.FileName;
+                settings.InstallPath[mod] = dir;
+                settings.Save();
+
+                return dir;
+            }
+
+            //No?
+            throw (new Exception("Cancelled by user"));
+        }
+
 
         private void OnMainThread(Action action)
         {
