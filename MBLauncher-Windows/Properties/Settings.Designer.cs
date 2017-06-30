@@ -25,9 +25,10 @@ namespace MBLauncher_Windows.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringDictionary InstallPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string InstallPath {
             get {
-                return ((global::System.Collections.Specialized.StringDictionary)(this["InstallPath"]));
+                return ((string)(this["InstallPath"]));
             }
             set {
                 this["InstallPath"] = value;

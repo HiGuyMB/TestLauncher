@@ -15,6 +15,10 @@ using System.Windows.Shapes;
 using MBLauncherLib;
 using MBLauncherLib.JsonTemplates;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Xml;
+using System.IO;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace MBLauncher_Windows
 {
@@ -68,18 +72,29 @@ namespace MBLauncher_Windows
         public string GetInstallDir(string mod)
         {
             var settings = MBLauncher_Windows.Properties.Settings.Default;
-            
-            if (settings.InstallPath == null)
-            {
-                settings.InstallPath = new System.Collections.Specialized.StringDictionary();
-            }
 
+            Dictionary<string, string> installPath;
+            try
+            {
+                //Use JSON to store the dictionary because apparently this isn't possible with native types
+                installPath = JsonConvert.DeserializeObject<Dictionary<string, string>>(settings.InstallPath);
+            }
+            catch (Exception ex)
+            {
+                installPath = null;
+            }
+            //In case we don't have a previous path saved
+            if (installPath == null)
+            {
+                installPath = new Dictionary<string, string>();
+            }
             //Check preferences
-            if (settings.InstallPath.ContainsKey(mod))
+            if (installPath.ContainsKey(mod))
             {
-                return settings.InstallPath[mod];
+                return installPath[mod];
             }
 
+            //Open a directory browser
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             dialog.IsFolderPicker = true;
             dialog.Title = "Choose Install Location";
@@ -88,8 +103,10 @@ namespace MBLauncher_Windows
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
+                //Save the new location
                 var dir = dialog.FileName;
-                settings.InstallPath[mod] = dir;
+                installPath[mod] = dir;
+                settings.InstallPath = JsonConvert.SerializeObject(installPath);
                 settings.Save();
 
                 return dir;

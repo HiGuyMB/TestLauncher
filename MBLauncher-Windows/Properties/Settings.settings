@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MBLauncher_Windows.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="InstallPath" Type="System.Collections.Specialized.StringDictionary" Scope="User">
+    <Setting Name="InstallPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>
