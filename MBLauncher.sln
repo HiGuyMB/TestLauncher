@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBLauncherLib", "MBLauncher
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBLauncher-Windows", "MBLauncher-Windows\MBLauncher-Windows.csproj", "{17B96D99-B065-4D67-BAE7-2FACF2D43F5D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBLauncher-Cli", "MBLauncher-Cli\MBLauncher-Cli.csproj", "{456FA34D-83CF-4508-B5F9-A3041BE650D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{17B96D99-B065-4D67-BAE7-2FACF2D43F5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17B96D99-B065-4D67-BAE7-2FACF2D43F5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17B96D99-B065-4D67-BAE7-2FACF2D43F5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{456FA34D-83CF-4508-B5F9-A3041BE650D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{456FA34D-83CF-4508-B5F9-A3041BE650D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{456FA34D-83CF-4508-B5F9-A3041BE650D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{456FA34D-83CF-4508-B5F9-A3041BE650D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

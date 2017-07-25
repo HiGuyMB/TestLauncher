@@ -59,22 +59,23 @@ namespace MBLauncherLib.JsonTemplates
         /// </summary>
         /// <param name="address">Address of the mod's config.json file</param>
         /// <returns>If the download was successful</returns>
-        async Task<bool> DownloadMod(Uri address)
+        async public Task<ModConfig> DownloadMod(Uri address)
         {
             WebClient client = new WebClient();
             byte[] data = await client.DownloadDataTaskAsync(address);
 
             string json = Encoding.UTF8.GetString(data);
+            ModConfig config = null;
             try
             {
-                ModConfig config = JsonConvert.DeserializeObject<ModConfig>(json);
+                config = JsonConvert.DeserializeObject<ModConfig>(json);
                 mods.Add(config.name, config);
 
-                return true;
+                return config;
             }
             catch (Exception ex)
             {
-                return false;
+                return config;
             }
         }
 
@@ -85,15 +86,15 @@ namespace MBLauncherLib.JsonTemplates
         /// <returns>If the download was successful</returns>
         async Task<bool> DownloadMods()
         {
-            List<Task<bool>> tasks = new List<Task<bool>>();
+            List<Task<ModConfig>> tasks = new List<Task<ModConfig>>();
             foreach (Uri address in defaultmods.Keys)
             {
                 tasks.Add(DownloadMod(address));
             }
 
             //We're successful when all mods are downloaded successfully
-            bool[] results = await Task.WhenAll<bool>(tasks.ToArray());
-            return !results.Contains(false);
+            ModConfig[] results = await Task.WhenAll<ModConfig>(tasks.ToArray());
+            return !results.Contains(null);
         }
     }
 }
